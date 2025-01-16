@@ -1,0 +1,239 @@
+3307 Final Project
+Tyler Lin - 251208517 - tlin257@uwo.ca
+
+NOTE: I want to code in java as I am more comfortable coding in this laguage, and I have decided to create a very large project. If I have time I may translate this into C++. In addition GUI is not in my imediate plans.
+
+_____________________________________IMPORTANT_______________________________________
+
+JSON simple package used. https://code.google.com/archive/p/json-simple/downloads 
+
+Filepath names need to be changed in masterpage and main.
+_____________________________________________________________________________________
+
+Problem Statement:
+Organizing and planning tournaments can be overwhelming. Most of the time tournaments stick
+to a list of simple structures. This makes planning the matches trivial but tedious. When
+organizing an event a minimal amount of effort should be put into something so simple. Not to
+mention when manually setting up matches there is the chance to add human error into the mix.
+In addition the search and registration of tournaments can also be tedious and time consuming.
+My tournament organizer intends to automatically set up matches to cut down on time and
+confusion. It will also allow managers to find tournaments to join, and free agents to add to their
+rosters.
+
+System Features:
+- Setting up and organizing a plethora of predesigned tournament structures
+    - Swiss, Double Elimination, Single Elimination, Round Robin, Etc.
+- Save records of tournaments
+    - Active and inactive
+- User login system for admins, managers, and players
+- Display free agents and their accolades
+- Display open tournaments
+    - Registration into tournaments
+
+
+
+
+
+
+
+
+
+Design Approach:
+- Encapsulation
+    - Will be used to keep information about users separated
+    - Will be used to prevent unwanted manipulation of data between tournaments
+- Inheritance
+    - A player, manager and admin all inherit from a general user class
+    - General user handles logging in, such as username and password.
+- Polymorphism
+    - Tournaments will have different matchmaking algorithms based on their type
+- Structure
+    - Users have a username and password
+    - Players, Admins, and Managers are users
+    - All tournaments have list of matches, a name, and a title
+- Object Relationships
+    - Players are in a team
+    - Managers are in charge of a team
+    - Managers sign up teams for tournaments
+    - Admins make tournaments
+    - Tournaments have matches
+    - Admins report matches
+
+
+
+
+
+Requirements:
+Functional:
+- Creation of different types of users
+- Creation of different types of tournaments
+- Tournaments will match make games
+- Data must be able to be stored for future uses
+
+Non-Functional:
+- Data encryption for security
+- Open design for future implementations
+
+
+
+Design Decisions:
+Inheritance:
+- There are two places I decided to implement inheritance in my project. Users and Tournaments.
+- The reason I decided to implement inheritance is because both Users and Tournaments will have identical attributes and actions regardless of its subtype. 
+- For example all Users will need a username, password, and name, and all Tournaments will have an ID, a list of games, etc. 
+- By using inheritance instead of multiple classes we can reuse code. This will be better in the long term, if more implementations are added
+
+Abstraction:
+Abstraction is also used for Tournaments.
+The reason I chose to implement abstraction is different Tournaments will need to implement the same functions but in different ways.
+For example, a Swiss tournament would match make games differently than a Single elimination tournament
+
+
+
+
+Future of Project:
+The immediate plans for this project is to display my understanding of OOD principles. If I have time I am planning on implementing GUI but the focus is more on the back end code. I have also designed the program for additional implementations like generating other tournament structures.
+I also intend to implement encription on all data but only if I have time.
+
+A lot of the system was designed with the intention of being efficient with data, however some comprimises were made. The data storage will have to be changed if scaled large enough. The current version relys on the system being capable of storing all data in the system. 
+
+Challenges:
+I may have bit off more than I can chew. I designed this project to be upgraded to add more and more features, but I may have made the original design too big for one person to handle on this deadline. After consulting many of my fellow classmates, it has come to my attention my project is significantly larger (some even being apart of a group). Nonetheless I will keep trecking onward. To cut down on work I have ommited some input validation. Normally I would not be happy with this, but comprimises must be made to get as close to a complete product as I can. If I do decide to bring this project further after this class I will have plenty to work on, such as encryption and user interface.
+
+
+
+
+
+
+Pattern Justifications:
+
+Factory Method:
+- The factory method will be used to create different types of tournaments
+- Certain tournaments require extra information before they start so a factory in charge of gathering the correct information for the specified tournament is ideal
+
+Singleton Pattern:
+- The tournament factory will also use the singleton pattern
+- The action manager will also use the singleton pattern
+- Since this is a multi-user program different users will be performing the same tasks
+- However, multiple instances of an unchanged class is a waste of memory.
+- Thus a singleton pattern is ideal
+
+Facade Pattern:
+- The UserActions class is a facade pattern.
+- It is in charge of prompting Users on what actions to handle.
+- This adds more encapsulation, thus hiding the complexities from users.
+- By implementing this, future versions will have a lot easier of a time expanding
+- For example if we allow Users to be Managers + Players or Admin + Manager.
+- With a single class incharge of serving the menu of options to users is easier
+- NOTE: If I were to redo this project I would still have a facade pattern but offload the functions better than what I have right now
+
+NOTE: The following are NOT implemented but would be beneficial for future additions
+- Iterator Pattern: There is a lot of code with very similar logic. An iterator would be able to reduce the amount of duplicate code
+- More Factories: Game and Record Factories could significantly reduce the weight that the Tournament class does.
+
+
+
+
+
+Challenges & Solutions:
+- Although Tournaments have different methods for matchmaking and standings there are still a lot of common elements between them. 
+    - I debated between a couple of different methods to maximize reusability of code, but could not figure out a solution better than what I currently have
+    - The inherited methods are all the ones in common with each other, and although the logic is very similar between tournaments, the interface is the optimal solution for the slight alterations within the methods
+- Figuring out a way to generate different types of tournaments when they have specific needs was an interesting problem.
+    - After researching more about the factory pattern, I found it was a great solution.
+- Algorithm design of specific matchmaking was more difficult than I expected.
+    - Visually the matchmaking seems trivial, but translating that to code was harder than expected
+    - After research, thinking, and hand drawing my thoughts I figured out all the algorithms needed
+- POST DELIVERABLE 2 CHALLENGES
+    - I decided to create a project that is simply too massive for one person to work on in this timeframe. I am disappointed that what I am handing in is just a fraction of what I wanted, but it is too late to change my project.
+    - The way I originally designed the Objects there was tight coupling that created a cycle. Tournaments had Games that had Teams that had Users that had Tournaments. This caused issues when attempting to program JSON storage, as I had to break the link somewhere to read and write the data.
+
+
+
+
+
+_______________________________________________________________________________________________________________________________________________________________________________________
+
+Developer Logs:
+
+Nov 11 2024:
+Basic OOP stucture is near completion. The basics of each class has been completed. 
+Tournament classes Swiss, RoundRobin, and SingleElim have their logic figured out and partially implemented.
+No testing has occured yet.
+
+To Do:
+- Data Manager (Reading and Writing JSONS)
+- Encryption (For Security. Only Implement if there is time)
+- Main (Runninng interactions between classes)
+- Complete functionability of all user classes
+- Complete functionability and logic for doubleElim
+
+
+Nov 21 2024:
+Added additional OOP design structures. Small fixes and changes made to multiple classes. Working on UserAction and DataManager right now. Main class should be quick and easy, just haven't implemented yet.
+
+To Do:
+- Data Manager (Reading and Writing JSONS)
+- Encryption (For Security. Only Implement if there is time)
+- Main (Runninng interactions between classes)
+- Port User Functionalities to UserActions
+- Complete funcitonality of TournamentFactory
+- Complete functionability and logic for doubleElim
+
+Nov 24 2024:
+Main is basically complete. User Actions is near completion. Started working on Tournament factory.
+
+To Do:
+- Data Manager (Reading and Writing JSONS)
+- Encryption (For Security. Only Implement if there is time)
+- Complete funcitonality of TournamentFactory
+- Complete functionability and logic for doubleElim
+
+Dec 4 2024:
+Completed logic for double elim. Continued to work on user funtionabilities. Started to work on data manager. Edited record slightly for JSON storage.
+
+To Do:
+- Data Manager (Reading and Writing JSONS)
+- Encryption (For Security. Only Implement if there is time)
+- Testing/Bug Fixing 
+
+Dec 6 2024:
+Reading JSONs is near completion. Still need to be able to write JSONs. Still no testing has occured and I am getting worried I won't have enough time. I probably will not have time to implement encryption, but it is on the top of my list once I have a functional product.
+
+To Do:
+- Data Manager (Writing JSONS)
+- Encryption (For Security. Only Implement if there is time)
+- Testing/Bug Fixing 
+
+Dec 7 2024:
+Writing JSONS is near completion. Still no testing has occured. It has come to my attention that implementing an intorator design patter would be useful, but it is too late to implement. If i do extend the project onward, it would be a good idea to implement.
+
+To Do:
+- Clean up and re-comment code
+- Testing/Bug Fixing 
+- Encryption (For Security. Only Implement if there is time)
+
+Dec 9 2024:
+All logic is theoretically done. No testing has occured so there could be plenty of bugs.
+
+To Do:
+- Clean up and re-comment code
+- Testing/Bug Fixing 
+- Encryption (Not for this deliverable)
+
+Dec 16 2024:
+Testing and bug fixing has begun. I am getting really worried about getting everything tested and fixed by the deadline. I have been super motivated to get everything done, but the scale of my project is just too big for a single person to work on by themselves (Last time I checked I am at roughly 2.5k lines of code). For the purpose of the project, getting the OOP structure working is my top priority, but idealally I want a fully funtioning product. 
+
+I will definetly continue to work on this project after this course, as I have so much more I want to add and change. For example, I want to implement GUI and Ecription. In addition, while I was programming this I realized I could use more design patterns I leaned from class, such as an Iterator, and and abstract factory.
+
+To Do (For Deadline) :
+- Clean up and re-comment code
+- Testing/Bug Fixing 
+
+To Do (In the Future) :
+- Encription
+- GUI
+- Restructure code using more design patterns
+
+Dec 17 2024:
+Still general bug testing. I haven't even created any JUNIT testing. I have offically lost all hope at getting everything fixed before the deadline T_T . There is just too much to work on. I tried to ensure at least most of the Object Oriented Design is functional, but I am unsure if any of the matchmaking algorithms of tournaments works as intended. I have learned a lot throughout working on this project and I am egar to do more, but for now I am dissapointed in the result I have submitted.

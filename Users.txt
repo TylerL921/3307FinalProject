@@ -1,0 +1,1 @@
+[{"password":"admin","name":"admin","type":"Admin","username":"admin"},{"password":"manager","name":"manager","type":"Manager","username":"manager"},{"password":"player","records":[],"name":"player","type":"Player","username":"player"}]
